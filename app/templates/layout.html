@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+{% block head %}
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+<!--[if lt IE 9]>
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css" />
+<link rel="stylesheet" href="{{ url_for('.static', filename='css/style.css') }}" />
+{% endblock %}
+</head>
+<body>
+    <div class="container">
+      <div class="content">
+        <div class="page-header">
+          <h1>THE 掲示板 <small>ただの掲示板のテストですよ。</small></h1>
+        </div>
+        <div class="row">
+          <div class="span14">
+            {% for message in get_flashed_messages() %}
+            <div class="alert-message block-message info">
+              <a class="close" href="#">&times;</a>
+              <p>{{ message }}</p>
+            </div>
+            {% endfor %}
+            {% if error %}
+            <div class="alert-message block-message error">
+              <p>{{ error }}</p>
+            </div>
+            {% endif %}
+          </div>
+          <div class="span10">
+            {% block body %} {% endblock %}
+          </div>
+          <div class="span3">
+            <h3>メニュー</h3>
+            <ul>
+            {% if not session['screen_name']  %}
+              <li><a href="{{ url_for('login') }}">Twitterログイン</a></li>
+            {% else %}
+              <li><a href="{{ url_for('add_entry') }}">書きこむ</a></li>
+              <li><a href="{{ url_for('logout') }}">logout</a></li>
+            {% endif %}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <p>&copy; Company 2011</p>
+      </footer>
+    </div> <!-- /container -->
+</body>
+</html>

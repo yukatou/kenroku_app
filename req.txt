@@ -1,0 +1,6 @@
+Flask
+Flask-OAuth
+Flask-WTF
+flup
+SQLAlchemy
+MySQL-python
